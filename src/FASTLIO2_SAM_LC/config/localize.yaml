@@ -1,0 +1,32 @@
+map_frame: map
+local_frame: local
+body_frame: body
+imu_topic: /livox/imu
+livox_topic: /livox/lidar
+
+local_rate: 20.0
+loop_rate: 1.0
+publish_map_cloud: true
+
+lio_builder:
+  det_range: 100.0
+  cube_len: 500.0
+  resolution: 0.1
+  move_thresh: 1.5
+  align_gravity: true
+  imu_ext_rot: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+  imu_ext_pos: [-0.011, -0.02329, 0.04412]
+
+localizer:
+  refine_resolution: 0.15
+  rough_resolution: 0.5
+  refine_iter: 5
+  rough_iter: 10
+  thresh: 0.15
+  xy_offset: 1.0
+  yaw_offset: 0
+  yaw_resolution: 0.5
+pcd_path: /home/shuaiawen/ROS1/slam/slam_mapping_ws/maps/mid360/mid360_map_0.10m.pcd
+#pcd_path: /home/shuaiawen/ROS1/slam/slam_mapping_ws/src/FAST_LIO/PCD/maps/mid360_official_20260629_1609/processed/final/mid360_map_0.10m.pcd
+#旧路径
+#/home/shuaiawen/ROS1/slam/slam_mapping_ws/src/mapping/map_3d/fastlio_point_a.pcd

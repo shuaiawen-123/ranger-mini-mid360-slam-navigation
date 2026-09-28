@@ -1,0 +1,41 @@
+local_costmap:
+  global_frame: odom
+  robot_base_frame: base_link
+
+  update_frequency: 5.0
+  publish_frequency: 2.0
+  transform_tolerance: 1.0
+
+  rolling_window: true
+  width: 8.0
+  height: 8.0
+  resolution: 0.10
+
+  # 局部规划时将地图未知区域作为空闲区域处理。
+  # 全局规划仍禁止经过未知区域。
+  track_unknown_space: false
+  always_send_full_costmap: true
+
+  footprint:
+    - [0.45, 0.32]
+    - [0.45, -0.32]
+    - [-0.45, -0.32]
+    - [-0.45, 0.32]
+
+  footprint_padding: 0.02
+
+  plugins:
+    - name: static_layer
+      type: "costmap_2d::StaticLayer"
+    - name: inflation_layer
+      type: "costmap_2d::InflationLayer"
+
+  static_layer:
+    map_topic: /map
+    subscribe_to_updates: true
+    track_unknown_space: false
+    use_maximum: false
+
+  inflation_layer:
+    inflation_radius: 0.45
+    cost_scaling_factor: 4.0

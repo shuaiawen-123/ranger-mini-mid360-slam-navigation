@@ -1,0 +1,17 @@
+<launch>
+    <node pkg="ranger_localization_bridge"
+          type="map_odom_bridge.py"
+          name="nav_map_odom_bridge"
+          output="screen">
+
+        <param name="map_frame" value="nav_map"/>
+        <param name="body_frame" value="body"/>
+
+        <param name="odom_frame" value="odom"/>
+        <param name="base_frame" value="base_link"/>
+
+        <param name="publish_rate" value="20.0"/>
+        <param name="transform_tolerance" value="0.20"/>
+        <param name="alpha" value="0.03"/>
+    </node>
+</launch>

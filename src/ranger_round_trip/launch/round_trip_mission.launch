@@ -1,0 +1,125 @@
+<launch>
+
+  <arg name="goal_topic"
+       default="/round_trip_goal"/>
+
+  <arg name="global_frame"
+       default="nav_map"/>
+
+  <arg name="odom_frame"
+       default="odom"/>
+
+  <arg name="base_frame"
+       default="base_link"/>
+
+  <arg name="cmd_vel_topic"
+       default="/cmd_vel_turn"/>
+
+  <arg name="wait_after_end_turn"
+       default="0.5"/>
+
+  <!-- 1 表示逆时针；-1 表示顺时针 -->
+  <arg name="turn_direction"
+       default="1"/>
+
+  <node pkg="ranger_round_trip"
+        type="round_trip_mission_node"
+        name="round_trip_mission"
+        output="screen"
+        required="false">
+
+    <param name="goal_topic"
+           value="$(arg goal_topic)"/>
+
+    <param name="action_name"
+           value="/move_base"/>
+
+    <param name="global_frame"
+           value="$(arg global_frame)"/>
+
+    <param name="odom_frame"
+           value="$(arg odom_frame)"/>
+
+    <param name="base_frame"
+           value="$(arg base_frame)"/>
+
+    <param name="cmd_vel_topic"
+           value="$(arg cmd_vel_topic)"/>
+
+    <param name="wait_after_end_turn"
+           value="$(arg wait_after_end_turn)"/>
+
+    <param name="settle_time"
+           value="0.5"/>
+
+    <param name="goal_timeout"
+           value="180.0"/>
+
+    <param name="minimum_route_distance"
+           value="0.5"/>
+
+    <!-- 距离起点小于0.35米时取消TEB，进入最终原地掉头 -->
+    <param name="return_position_tolerance"
+           value="0.35"/>
+
+    <!-- 原地旋转参数 -->
+    <param name="turn_direction"
+           value="$(arg turn_direction)"/>
+
+    <param name="turn_angle"
+           value="3.141592653589793"/>
+
+    <param name="turn_max_speed"
+           value="0.35"/>
+
+    <param name="turn_min_speed"
+           value="0.12"/>
+
+    <param name="turn_kp"
+           value="1.20"/>
+
+    <!-- 约4.6度 -->
+    <param name="turn_tolerance"
+           value="0.12"/>
+
+    <param name="turn_timeout"
+           value="20.0"/>
+
+    <param name="turn_rate"
+           value="20.0"/>
+
+    <param name="stop_hold_time"
+           value="0.5"/>
+
+  </node>
+    <!-- 速度指令选择器：
+       正常导航时转发 /cmd_vel_nav
+       原地掉头时优先转发 /cmd_vel_turn
+       最终统一输出到 /cmd_vel -->
+  <node pkg="ranger_round_trip"
+        type="cmd_vel_mux_node"
+        name="round_trip_cmd_vel_mux"
+        output="screen"
+        required="true">
+
+    <param name="nav_topic"
+           value="/cmd_vel_nav"/>
+
+    <param name="turn_topic"
+           value="/cmd_vel_turn"/>
+
+    <param name="output_topic"
+           value="/cmd_vel"/>
+
+    <param name="nav_timeout"
+           value="0.5"/>
+
+    <param name="turn_timeout"
+           value="0.25"/>
+
+    <param name="publish_rate"
+           value="30.0"/>
+
+  </node>
+
+</launch>

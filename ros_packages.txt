@@ -1,0 +1,17 @@
+src/FASTLIO2_SAM_LC/package.xml
+src/FAST_LIO/package.xml
+src/Point-LIO/package.xml
+src/faster-lio/package.xml
+src/imu_driver/fdilink_ahrs/package.xml
+src/lidar_driver/rslidar_sdk/package.xml
+src/livox_ros_driver/livox_ros_driver/package.xml
+src/livox_ros_driver2/package.xml
+src/mapping/package.xml
+src/ranger_localization_bridge/package.xml
+src/ranger_navigation/package.xml
+src/ranger_ros/ranger_base/package.xml
+src/ranger_ros/ranger_bringup/package.xml
+src/ranger_ros/ranger_msgs/package.xml
+src/ranger_round_trip/package.xml
+src/teach_path/package.xml
+src/ugv_sdk/package.xml

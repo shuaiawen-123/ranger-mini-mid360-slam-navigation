@@ -1,0 +1,25 @@
+<launch>
+  <!-- move_base 速度直接发送给 Ranger 底盘 -->
+  <arg name="cmd_vel_topic" default="/cmd_vel"/>
+
+  <node pkg="move_base"
+        type="move_base"
+        name="move_base"
+        output="screen"
+        clear_params="true">
+
+    <rosparam command="load"
+              file="$(find ranger_navigation)/config/move_base.yaml"/>
+
+    <rosparam command="load"
+              file="$(find ranger_navigation)/config/global_costmap.yaml"/>
+
+    <rosparam command="load"
+              file="$(find ranger_navigation)/config/local_costmap.yaml"/>
+
+    <rosparam command="load"
+              file="$(find ranger_navigation)/config/dwa_local_planner.yaml"/>
+
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+  </node>
+</launch>
